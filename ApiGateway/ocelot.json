@@ -1,0 +1,47 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/orchestrator",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7007
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/products",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "orchestrator"
+    },
+    {
+      "DownstreamPathTemplate": "/api/orchestrator/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7007
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/products/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "orchestrator"
+    }
+
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "orchestrator",
+      "Config": [
+        {
+          "Name": "Orchestrator API",
+          "Version": "v1",
+          "Url": "https://localhost:7007/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7239",
+    "DangerousAcceptAnyServerCertificateValidator": true
+  }
+}
