@@ -1,14 +1,21 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ProductService.Mapper;
+using ProductService.Services;
+using ProductService.Services.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-
-// Add DbContext
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<MappingProfile>();
+});// Add DbContext
 builder.Services.AddDbContext<ProductService.Models.PubsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection")));
+builder.Services.AddScoped<ITitleServices, TitleServices>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

@@ -10,7 +10,7 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/products",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
       "SwaggerKey": "orchestrator"
     },
     {
@@ -23,10 +23,9 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/products/{id}",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
       "SwaggerKey": "orchestrator"
     }
-
   ],
   "SwaggerEndPoints": [
     {
