@@ -1,33 +1,35 @@
-using Ocelot.DependencyInjection;
+ï»¿using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Ocelot dosyasýný ekle
-builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") // Angular URL
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
-// Servisleri kaydet
 builder.Services.AddOcelot();
-builder.Services.AddSwaggerForOcelot(builder.Configuration);
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    // Gateway üzerinden diðer servisleri görmek için
-    app.UseSwaggerForOcelotUI(opt =>
-    {
-        opt.PathToSwaggerGenerator = "/swagger/docs";
-    });
-}
+app.UseCors("AllowAll");
 
-// Ana sayfaya gidince doðrudan Swagger'a atsýn
-app.MapGet("/", () => Results.Redirect("/swagger"));
+// Use CORS
+app.UseCors("AllowAngular");
 
 await app.UseOcelot();
+
+app.MapGet("/", () => "Hello World!");
 
 app.Run();

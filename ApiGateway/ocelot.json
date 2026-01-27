@@ -1,46 +1,55 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/orchestrator",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/products",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7007
+          "Port": 5225
         }
       ],
-      "UpstreamPathTemplate": "/gateway/products",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
-      "SwaggerKey": "orchestrator"
+      "UpstreamPathTemplate": "/api/products",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "SwaggerKey": "products"
     },
     {
-      "DownstreamPathTemplate": "/api/orchestrator/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/products/{id}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7007
+          "Port": 5225
         }
       ],
-      "UpstreamPathTemplate": "/gateway/products/{id}",
-      "UpstreamHttpMethod": [ "Get", "Delete" ],
-      "SwaggerKey": "orchestrator"
+      "UpstreamPathTemplate": "/api/products/{id}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Delete",
+        "Put"
+      ],
+      "SwaggerKey": "products"
     }
   ],
   "SwaggerEndPoints": [
     {
-      "Key": "orchestrator",
+      "Key": "products",
       "Config": [
         {
-          "Name": "Orchestrator API",
+          "Name": "Product API",
           "Version": "v1",
-          "Url": "https://localhost:7007/swagger/v1/swagger.json"
+          "Url": "http://localhost:5225/swagger/v1/swagger.json"
         }
       ]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:7239",
+    "BaseUrl": "http://localhost:5272",
     "DangerousAcceptAnyServerCertificateValidator": true
   }
 }

@@ -24,6 +24,11 @@ namespace ProductService.Services
                 TitleId=title.Id,
                 Title1=title.Title,
                 Price=title.Price,
+                Type = title.Type,
+                Advance=title.Advance,
+                Notes=title.Notes,
+                Royalty=title.Royalty,
+                Pubdate = DateTime.Now 
                 
             };
             await _context.Titles.AddAsync(titleDto);
@@ -49,9 +54,12 @@ namespace ProductService.Services
             return entity.Select(t => new TitleDto
             {
                 Id=t.TitleId,
-                Name = t.Title1,
+                Title = t.Title1,
                 Type = t.Type,
-                Price=t.Price
+                Price=t.Price,
+                Advance=t.Advance,
+                Notes=t.Notes,
+                Royalty=t.Royalty
                
             }).ToList();
             
