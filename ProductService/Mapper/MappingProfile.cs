@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ProductService.Dtos;
+using ProductService.Dtos.AuthorDtos;
 using ProductService.Models;
 
 namespace ProductService.Mapper
@@ -9,6 +10,7 @@ namespace ProductService.Mapper
         public MappingProfile()
         {
             CreateMap<UpdateTitleDto, Title>();
+            CreateMap<UpdateAuthorDto, Author>();
         }
     }
 }

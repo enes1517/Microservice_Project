@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/orchestrator",
+      "DownstreamPathTemplate": "/api/Orchestrator/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -9,21 +9,8 @@
           "Port": 7007
         }
       ],
-      "UpstreamPathTemplate": "/gateway/products",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
-      "SwaggerKey": "orchestrator"
-    },
-    {
-      "DownstreamPathTemplate": "/api/orchestrator/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7007
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/products/{id}",
-      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "UpstreamPathTemplate": "/gateway/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "SwaggerKey": "orchestrator"
     }
   ],

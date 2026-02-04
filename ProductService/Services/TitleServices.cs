@@ -24,6 +24,12 @@ namespace ProductService.Services
                 TitleId=title.Id,
                 Title1=title.Title,
                 Price=title.Price,
+                Notes=title.Notes,
+                Type=title.Type,
+                Royalty=title.Royalty,
+                Pubdate=title.Pubdate,
+        
+               
                 
             };
             await _context.Titles.AddAsync(titleDto);
@@ -43,18 +49,20 @@ namespace ProductService.Services
             return true;
         }
 
-        public  async Task<List<TitleDto>> GetAllAsync(int n)
+        public async Task<List<TitleDto>> GetAllAsync(int n)
         {
-            var entity = await _context.Titles.Take(n).ToListAsync();
-            return entity.Select(t => new TitleDto
-            {
-                Id=t.TitleId,
-                Name = t.Title1,
-                Type = t.Type,
-                Price=t.Price
-               
-            }).ToList();
-            
+            return await _context.Titles
+                .Take(n)
+                .Select(t => new TitleDto 
+                {
+                    Id = t.TitleId,
+                    Type = t.Type,
+                    Price = t.Price,
+                    Notes = t.Notes,
+                    Royalty = t.Royalty,
+                    Title = t.Title1
+                })
+                .ToListAsync(); 
         }
 
         public async Task<bool> UpdateAsync(UpdateTitleDto updateTitle)

@@ -15,7 +15,9 @@ builder.Services.AddAutoMapper(cfg =>
 });// Add DbContext
 builder.Services.AddDbContext<ProductService.Models.PubsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection")));
+
 builder.Services.AddScoped<ITitleServices, TitleServices>();
+builder.Services.AddScoped<IAuthorServices, AuthorServices>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

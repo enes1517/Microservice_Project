@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using OrchestratorService.Refit;
 using ProductService.Dtos;
-using System.Net.Http.Json; // JsonContent desteği için
-using System.Threading.Tasks;
+using ProductService.Dtos.AuthorDtos;
 
 namespace OrchestratorService.Controllers
 {
@@ -10,91 +9,82 @@ namespace OrchestratorService.Controllers
     [ApiController]
     public class OrchestratorController : ControllerBase
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogger<OrchestratorController> _logger;
+        private readonly IProductServiceApi _productApi;
 
-        public OrchestratorController(IHttpClientFactory httpClientFactory, ILogger<OrchestratorController> logger)
+        public OrchestratorController(IProductServiceApi productApi)
         {
-            _httpClientFactory = httpClientFactory;
-            _logger = logger;
+            _productApi = productApi;
         }
 
-        // GET: api/orchestrator
-        [HttpGet]
-        public async Task<IActionResult> GetAllProducts([FromQuery] int n)
+        #region Product Operations
+
+        [HttpGet("products")]
+        public async Task<IActionResult> GetProducts([FromQuery] int n = 10)
         {
-            _logger.LogInformation($"Orchestrator: {n} adet ürün getirme isteği başladı.");
-
-            var client = _httpClientFactory.CreateClient("ProductService");
-
-            // URL'ye query string ekliyoruz: api/products?count=5
-            var response = await client.GetAsync($"api/products?n={n}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                return Ok(content);
-            }
-            return StatusCode((int)response.StatusCode);
+            var response = await _productApi.GetAllProductsAsync(n);
+            return response.IsSuccessStatusCode ? Ok(response.Content) : StatusCode((int)response.Error.StatusCode);
         }
 
-        // GET: api/orchestrator/{id}
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id)
+        [HttpGet("products/{id}")]
+        public async Task<IActionResult> GetProduct(string id)
         {
-            var client = _httpClientFactory.CreateClient("ProductService");
-            var response = await client.GetAsync($"api/products/{id}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                return Ok(content);
-            }
-            return StatusCode((int)response.StatusCode);
+            var response = await _productApi.GetProductByIdAsync(id);
+            return response.IsSuccessStatusCode ? Ok(response.Content) : StatusCode((int)response.Error.StatusCode);
         }
 
-        // POST: api/orchestrator
-        [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] CreateTitleDto productDto)
+        [HttpPost("products")]
+        public async Task<IActionResult> CreateProduct([FromBody] CreateTitleDto dto)
         {
-            _logger.LogInformation("Orchestrator: Yeni ürün oluşturma isteği.");
-            var client = _httpClientFactory.CreateClient("ProductService");
-            var response = await client.PostAsJsonAsync("api/products", productDto);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                return Ok(content);
-            }
-            return StatusCode((int)response.StatusCode);
+            var response = await _productApi.CreateProductAsync(dto);
+            return response.IsSuccessStatusCode ? Ok(response.Content) : StatusCode((int)response.Error.StatusCode);
         }
 
-        // PUT: api/orchestrator
-        [HttpPut]
-        public async Task<IActionResult> UpdateProduct([FromBody] UpdateTitleDto updateProductDto)
+        [HttpPut("products")]
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateTitleDto dto)
         {
-            _logger.LogInformation("Orchestrator: Ürün güncelleme isteği.");
-            var client = _httpClientFactory.CreateClient("ProductService");
-            var response = await client.PutAsJsonAsync("api/products", updateProductDto);
-
-            if (response.IsSuccessStatusCode)
-                return Ok(new { Message = "Güncelleme başarılı" });
-
-            return StatusCode((int)response.StatusCode);
+            var response = await _productApi.UpdateProductAsync(dto);
+            return response.IsSuccessStatusCode ? Ok(response.Content) : StatusCode((int)response.Error.StatusCode);
         }
 
-        // DELETE: api/orchestrator/{id}
-        [HttpDelete("{id}")]
+        [HttpDelete("products/{id}")]
         public async Task<IActionResult> DeleteProduct(string id)
         {
-            _logger.LogInformation($"Orchestrator: {id} id'li ürün silme isteği.");
-            var client = _httpClientFactory.CreateClient("ProductService");
-            var response = await client.DeleteAsync($"api/products/{id}");
-
-            if (response.IsSuccessStatusCode)
-                return Ok(new { Message = "Silme işlemi başarılı" });
-
-            return StatusCode((int)response.StatusCode);
+            var response = await _productApi.DeleteProductAsync(id);
+            return response.IsSuccessStatusCode ? Ok(response.Content) : StatusCode((int)response.Error.StatusCode);
         }
+
+        #endregion
+
+        #region Author Operations
+
+        [HttpGet("authors")]
+        public async Task<IActionResult> GetAuthors([FromQuery] int n = 5)
+        {
+            var response = await _productApi.GetAllAuthorsAsync(n);
+            return response.IsSuccessStatusCode ? Ok(response.Content) : StatusCode((int)response.Error.StatusCode);
+        }
+
+        [HttpPost("authors")]
+        public async Task<IActionResult> CreateAuthor([FromBody] AuthorCreateDto dto)
+        {
+            var response = await _productApi.CreateAuthorAsync(dto);
+            return response.IsSuccessStatusCode ? Ok(response.Content) : StatusCode((int)response.Error.StatusCode);
+        }
+
+        [HttpPut("authors")]
+        public async Task<IActionResult> UpdateAuthor([FromBody] UpdateAuthorDto dto)
+        {
+            var response = await _productApi.UpdateAuthorAsync(dto);
+            return response.IsSuccessStatusCode ? Ok(response.Content) : StatusCode((int)response.Error.StatusCode);
+        }
+
+        [HttpDelete("authors/{id}")]
+        public async Task<IActionResult> DeleteAuthor(string id)
+        {
+            var response = await _productApi.DeleteAuthorAsync(id);
+            return response.IsSuccessStatusCode ? Ok(response.Content) : StatusCode((int)response.Error.StatusCode);
+        }
+
+        #endregion
     }
 }

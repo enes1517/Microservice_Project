@@ -1,11 +1,13 @@
+using OrchestratorService.Refit;
+using Refit;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddHttpClient("ProductService", client =>
-{
-    client.BaseAddress = new Uri("https://localhost:7081");
-});
+// Refit Client Kaydý
+builder.Services.AddRefitClient<IProductServiceApi>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7081")); // ProductService'in gerçek URL'si
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

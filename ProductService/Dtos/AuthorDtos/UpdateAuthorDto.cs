@@ -1,0 +1,28 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ProductService.Dtos.AuthorDtos
+{
+    public record class UpdateAuthorDto
+    {
+        [Required(ErrorMessage = "Güncellenecek yazarın ID bilgisi eksik.")]
+        public string AuId { get; init; } = null!;
+
+        [Required(ErrorMessage = "Soyadı boş bırakılamaz.")]
+        [StringLength(40)]
+        public string AuLname { get; init; } = null!;
+
+        [Required(ErrorMessage = "Ad boş bırakılamaz.")]
+        [StringLength(20)]
+        public string AuFname { get; init; } = null!;
+
+        [Phone(ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
+        public string Phone { get; init; } = null!;
+
+        public string? Address { get; init; }
+
+        public string? City { get; init; }
+
+        [Required]
+        public bool Contract { get; init; }
+    }
+}

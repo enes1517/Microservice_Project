@@ -1,10 +1,10 @@
 ﻿namespace ProductService.Dtos
 {
-    public record class CreateTitleDto
+    public record class CreateTitleDto:TitleDto
     {
-        public string Id { get; set; }
-        public string Title { get; set; }
-        public decimal Price { get; set; }
+    public DateTime Pubdate { get; set; }
+
+
 
     }
 }
