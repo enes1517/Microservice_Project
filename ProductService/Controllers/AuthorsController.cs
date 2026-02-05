@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProductService.Dtos.AuthorDtos;
 using ProductService.Services.Contracts;
+using Shared.AuthorDtos;
 
 namespace ProductService.Controllers
 {

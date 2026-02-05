@@ -1,4 +1,4 @@
-﻿using ProductService.Dtos.AuthorDtos;
+﻿using Shared.AuthorDtos;
 
 namespace ProductService.Services.Contracts
 {

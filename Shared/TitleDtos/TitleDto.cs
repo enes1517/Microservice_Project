@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductService.Dtos
+namespace Shared.TitleDtos
 {
     public  record class TitleDto
     {

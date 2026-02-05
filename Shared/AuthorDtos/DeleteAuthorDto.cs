@@ -1,4 +1,4 @@
-﻿namespace ProductService.Dtos.AuthorDtos
+﻿namespace Shared.AuthorDtos
 {
     public record class DeleteAuthorDto
     {

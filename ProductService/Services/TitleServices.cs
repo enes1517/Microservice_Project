@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using ProductService.Dtos;
-using ProductService.Models;
 using ProductService.Services.Contracts;
+using Shared.Models;
+using Shared.TitleDtos;
 
 namespace ProductService.Services
 {

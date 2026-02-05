@@ -1,4 +1,4 @@
-﻿namespace ProductService.Dtos
+﻿namespace Shared.TitleDtos
 {
     public record class CreateTitleDto:TitleDto
     {

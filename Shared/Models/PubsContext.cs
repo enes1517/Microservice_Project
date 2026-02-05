@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProductService.Models;
+namespace Shared.Models;
 
 public partial class PubsContext : DbContext
 {

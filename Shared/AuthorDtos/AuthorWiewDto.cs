@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductService.Dtos.AuthorDtos
+namespace Shared.AuthorDtos
 {
     public record class AuthorWiewDto
     {

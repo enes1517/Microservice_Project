@@ -1,4 +1,4 @@
-﻿using ProductService.Dtos;
+﻿using Shared.TitleDtos;
 
 namespace ProductService.Services.Contracts
 {

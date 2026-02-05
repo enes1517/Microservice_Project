@@ -1,6 +1,6 @@
-﻿using ProductService.Dtos;
-using ProductService.Dtos.AuthorDtos;
-using Refit;
+﻿using Refit;
+using Shared.AuthorDtos;
+using Shared.TitleDtos;
 
 namespace OrchestratorService.Refit
 {

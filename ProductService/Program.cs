@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ProductService.Mapper;
 using ProductService.Services;
 using ProductService.Services.Contracts;
+using Shared.Mapper;
+using Shared.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,7 @@ builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<MappingProfile>();
 });// Add DbContext
-builder.Services.AddDbContext<ProductService.Models.PubsContext>(options =>
+builder.Services.AddDbContext<PubsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection")));
 
 builder.Services.AddScoped<ITitleServices, TitleServices>();

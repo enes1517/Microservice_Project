@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using ProductService.Dtos;
-using ProductService.Dtos.AuthorDtos;
-using ProductService.Models;
+using Shared.AuthorDtos;
+using Shared.Models;
+using Shared.TitleDtos;
 
-namespace ProductService.Mapper
+namespace Shared.Mapper
 {
     public class MappingProfile:Profile
     {

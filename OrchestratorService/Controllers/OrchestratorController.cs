@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OrchestratorService.Refit;
-using ProductService.Dtos;
-using ProductService.Dtos.AuthorDtos;
+using Shared.AuthorDtos;
+using Shared.TitleDtos;
 
 namespace OrchestratorService.Controllers
 {
