@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+ï»¿using Microsoft.AspNetCore.Mvc;
 using ProductService.Services.Contracts;
 using Shared.Models;
+using Shared.RequestParameters;
 using Shared.TitleDtos;
 
 namespace ProductService.Controllers
@@ -10,57 +10,59 @@ namespace ProductService.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly PubsContext _context;
-        private readonly ITitleServices _service;
-        public ProductsController(PubsContext context, ITitleServices service)
-        {
-            _context = context;
-            _service = service;
-        }
-        [HttpGet]
-        public async Task<IActionResult> GetProduct([FromQuery] int n = 10)
-        {
-            // n deðerini query'den alýyoruz
-            var product = await _service.GetAllAsync(n);
-            return Ok(product);
-        }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id)
-        {
-            var title = await _context.Titles.FindAsync(id);
-            if (title is null)
-            {
-                return NotFound();
-            }
-            return Ok(title);
+        private readonly ITitleServices _manager;
 
-        }
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateTitleDto dto)
+        public ProductsController(ITitleServices manager)
         {
-            var result = await _service.CreateTitle(dto);
+            _manager = manager;
+        }
+
+ 
+
+        [HttpGet]
+        public async Task<List<Title>> GetAllTitlesAsync([FromQuery]TitleRequestParameters p)
+        {
+            return  await _manager.GetAllTitlesAsync(p);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(string id)
+        {
+            var result = await _manager.GetByIdAsync(id);
+            if (result is null)
+                return NotFound();
+
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct([FromBody] CreateTitleDto dto)
+        {
+            var result = await _manager.CreateTitle(dto);
+            if (result is null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateTitleDto dto)
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateTitleDto dto)
         {
-            var result = await _service.UpdateAsync(dto);
-            if (!result)
+            var result = await _manager.UpdateAsync(dto);
+            if (result is false)
                 return NotFound();
-            return Ok(new { Message = "Güncellendi" });
 
+            return Ok(new { Message = "GÃ¼ncellendi" });
         }
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> DeleteProduct(string id)
         {
-           var result= await _service.DeleteAsync(id);
-           if(!result)
+            var result = await _manager.DeleteAsync(id);
+            if (result is false)
                 return NotFound();
+
             return Ok(new { Message = "Silindi" });
-
         }
-
-
-
     }
 }

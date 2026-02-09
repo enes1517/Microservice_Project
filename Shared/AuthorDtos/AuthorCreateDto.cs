@@ -4,20 +4,18 @@ namespace Shared.AuthorDtos
 {
     public class AuthorCreateDto
     {
-        [Required(ErrorMessage = "Yazar ID zorunludur.")]
-        public string AuId { get; set; } = null!;
 
         [Required, StringLength(40)]
-        public string AuLname { get; set; } = null!;
+        public string auLname { get; set; } = null!;
 
         [Required, StringLength(20)]
-        public string AuFname { get; set; } = null!;
+        public string auFname { get; set; } = null!;
 
         [Phone]
-        public string Phone { get; set; } = null!;
+        public string phone { get; set; } = null!;
 
-        public string? Address { get; set; }
-        public string? City { get; set; }
-        public bool Contract { get; set; }
+        public string? address { get; set; }
+        public string? city { get; set; }
+        public bool contract { get; set; }
     }
 }

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ProductService.Services.Contracts;
 using Shared.AuthorDtos;
+using Shared.Models;
+using Shared.RequestParameters;
 
 namespace ProductService.Controllers
 {
@@ -15,25 +17,26 @@ namespace ProductService.Controllers
         {
             _manager = manager;
         }
+        
         [HttpGet]
-        public async Task<IActionResult> GetAuthors([FromQuery] int n=5)
+
+        public async Task<List<Author>> GetAllAuthorsAsync([FromQuery]AuthorRequestParameters p)
         {
-          var result= await _manager.GetListAsync(n);
-        if (result is null)
-                return NotFound();
-
-        return Ok(result);
-
+            return await _manager.GetAllAuthorsAsync(p);
         }
 
+     
         [HttpPost]
         public async Task<IActionResult> CreateAuthors([FromBody]AuthorCreateDto dto)
         {
-            var result= await _manager.AuthorCreateAsync(dto);
+         
+                var result = await _manager.AuthorCreateAsync(dto);
+
+                if (result is null) return NotFound();
+
+                return Ok(result);
             
-            if (result is null) return NotFound();
-            
-            return Ok(result);
+           
 
 
         }
@@ -48,7 +51,7 @@ namespace ProductService.Controllers
 
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAuthors([FromQuery] string id)
+        public async Task<IActionResult> DeleteAuthors(string id)
         {
             var result= await _manager.AuthorDeleteAsync(id);
             if (result is false) return NotFound();

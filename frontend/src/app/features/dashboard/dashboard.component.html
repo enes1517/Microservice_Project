@@ -1,0 +1,110 @@
+<div class="dashboard-container fade-in">
+    <div class="dashboard-header">
+        <h1 class="gradient-text">Hoş Geldiniz</h1>
+        <p class="subtitle">Kitap ve yazar yönetim panelinize genel bakış</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <mat-card>
+                <div class="stat-content">
+                    <div class="stat-icon books">
+                        <mat-icon>book</mat-icon>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Kitaplar</h3>
+                        <p class="stat-number">{{ totalBooks }}</p>
+                    </div>
+                </div>
+                <a mat-button routerLink="/products" class="stat-action">
+                    Tüm Kitapları Gör
+                    <mat-icon>arrow_forward</mat-icon>
+                </a>
+            </mat-card>
+        </div>
+
+        <div class="stat-card">
+            <mat-card>
+                <div class="stat-content">
+                    <div class="stat-icon authors">
+                        <mat-icon>person</mat-icon>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Yazarlar</h3>
+                        <p class="stat-number">{{ totalAuthors }}</p>
+                    </div>
+                </div>
+                <a mat-button routerLink="/authors" class="stat-action">
+                    Tüm Yazarları Gör
+                    <mat-icon>arrow_forward</mat-icon>
+                </a>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="recent-section">
+        <div class="recent-books">
+            <mat-card>
+                <h2>
+                    <mat-icon>book</mat-icon>
+                    Son Eklenen Kitaplar
+                </h2>
+                <div *ngIf="loading" class="loading">
+                    <div class="spinner"></div>
+                </div>
+                <div *ngIf="!loading && recentBooks.length === 0" class="empty-state">
+                    <mat-icon>info</mat-icon>
+                    <p>Henüz kitap eklenmemiş</p>
+                </div>
+                <div class="recent-list" *ngIf="!loading && recentBooks.length > 0">
+                    <div class="recent-item" *ngFor="let book of recentBooks">
+                        <div class="item-icon">
+                            <mat-icon>menu_book</mat-icon>
+                        </div>
+                        <div class="item-info">
+                            <h3>{{ book.title }}</h3>
+                            <p>{{ book.type }} • {{ book.price || 'Fiyat belirtilmemiş' }}₺</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a mat-raised-button color="primary" routerLink="/products">
+                        Tüm Kitapları Görüntüle
+                    </a>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="recent-authors">
+            <mat-card>
+                <h2>
+                    <mat-icon>person</mat-icon>
+                    Son Eklenen Yazarlar
+                </h2>
+                <div *ngIf="loading" class="loading">
+                    <div class="spinner"></div>
+                </div>
+                <div *ngIf="!loading && recentAuthors.length === 0" class="empty-state">
+                    <mat-icon>info</mat-icon>
+                    <p>Henüz yazar eklenmemiş</p>
+                </div>
+                <div class="recent-list" *ngIf="!loading && recentAuthors.length > 0">
+                    <div class="recent-item" *ngFor="let author of recentAuthors">
+                        <div class="item-icon author">
+                            <mat-icon>person</mat-icon>
+                        </div>
+                        <div class="item-info">
+                            <h3>{{ author.fullName }}</h3>
+                            <p>{{ author.bookCount }} Kitap • {{ author.location || 'Konum belirtilmemiş' }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a mat-raised-button color="primary" routerLink="/authors">
+                        Tüm Yazarları Görüntüle
+                    </a>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
