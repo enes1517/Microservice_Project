@@ -1,10 +1,10 @@
 # Microservices Demo Project
 
-Bu proje, modern mikroservis mimarisini, .NET 10 ve Angular 18 teknolojilerini kullanarak gösteren kapsamlı bir demo uygulamasıdır. Proje, API Gateway, Orchestrator deseni ve Clean Architecture prensiplerini içermektedir.
+Bu proje, modern mikroservis mimarisini, .NET 10 ve Angular 18 teknolojilerini kullanarak gösteren kapsamlı bir Kitap Yönetim Sistemi uygulamasıdır. Proje, API Gateway, Orchestrator deseni ve Clean Architecture prensiplerini içermektedir.
 
 ## 🚀 Proje Hakkında
 
-MicroservicesDemo, e-ticaret benzeri bir senaryo üzerinden mikroservislerin nasıl iletişim kurduğunu, verilerin nasıl yönetildiğini ve modern bir frontend arayüzü ile nasıl sunulduğunu simüle eder.
+Bu proje üzerinden mikroservislerin nasıl iletişim kurduğunu, verilerin nasıl yönetildiğini ve modern bir frontend arayüzü ile nasıl sunulduğunu simüle eder.
 
 ### Temel Özellikler
 
@@ -18,18 +18,9 @@ MicroservicesDemo, e-ticaret benzeri bir senaryo üzerinden mikroservislerin nas
 
 Proje aşağıdaki temel bileşenlerden oluşur:
 
-graph TD
-    User[Kullanıcı / Frontend] -->|HTTPS| Gateway[ApiGateway (Ocelot)]
-    Gateway -->|/gateway| Orchestrator[Orchestrator Service]
-    Gateway -->|/api| Product[Product Service]
-    
-    Orchestrator -->|HTTP / Refit| Product
-    
-    Product -->|EF Core| DB[(SQL Server)]
-
 *   **ApiGateway:** Tüm dış istekleri karşılar.
 *   **OrchestratorService:** İş mantığını ve servisler arası akışı yönetir (örneğin, ürün oluşturma süreçleri). `Refit` kullanarak diğer servislerle haberleşir.
-*   **ProductService:** Ürün verilerinin yönetiminden sorumludur (CRUD). Veritabanı işlemlerini `EF Core` ile, iç mantığı `MediatR` ile yönetir.
+*   **ProductService:** Ürün verilerinin yönetiminden sorumludur (CRUD). Veritabanı işlemlerini `EF Core` ile yönetir.
 *   **Frontend:** Angular tabanlı Single Page Application (SPA).
 
 ## 🛠️ Teknolojiler
@@ -38,7 +29,6 @@ graph TD
 *   **ASP.NET Core Web API:** RESTful servisler.
 *   **Ocelot:** API Gateway çözümü.
 *   **Refit:** Tip güvenli HTTP istemcisi (microservice communication).
-*   **MediatR:** In-process messaging ve CQRS implementasyonu.
 *   **Entity Framework Core:** ORM ve veritabanı erişimi.
 *   **AutoMapper:** Nesne eşleme.
 *   **Swagger/OpenAPI:** API dokümantasyonu.
@@ -117,14 +107,3 @@ Servisler ayağa kalktığında aşağıdaki adreslerden erişilebilir:
 *   **Orchestrator Service:** [https://localhost:7007/swagger](https://localhost:7007/swagger)
 *   **Product Service:** [http://localhost:5265/swagger](http://localhost:5265/swagger)
 
-## 🤝 Katkıda Bulunma
-
-1.  Bu depoyu forklayın (Fork).
-2.  Yeni bir özellik dalı oluşturun (`git checkout -b ozellik/YeniOzellik`).
-3.  Değişikliklerinizi commit edin (`git commit -m 'Yeni özellik eklendi'`).
-4.  Dalınızı pushlayın (`git push origin ozellik/YeniOzellik`).
-5.  Bir Pull Request oluşturun.
-
-## 📄 Lisans
-
-Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır.
