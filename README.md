@@ -45,7 +45,6 @@ Proje aşağıdaki temel bileşenlerden oluşur:
 
 ### Gereksinimler
 *   [.NET 10 SDK](https://dotnet.microsoft.com/download) (veya en son preview sürümü)
-*   [Node.js](https://nodejs.org/) (LTS sürümü önerilir)
 *   [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) (LocalDB veya Express)
 *   Angular CLI: `npm install -g @angular/cli`
 
