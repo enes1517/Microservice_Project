@@ -1,6 +1,6 @@
 # Microservices Demo Project
 
-Bu proje, modern mikroservis mimarisini, .NET 10 ve Angular 18 teknolojilerini kullanarak gösteren kapsamlı bir Kitap Yönetim Sistemi uygulamasıdır. Proje, API Gateway, Orchestrator deseni ve Clean Architecture prensiplerini içermektedir.
+Bu proje, modern mikroservis mimarisini, .NET 10 ve Angular 18 teknolojilerini kullanarak oluşturulmuş bir Kitap Yönetim Sistemi uygulamasıdır. Proje, API Gateway, Orchestrator deseni ve Clean Architecture prensiplerini içermektedir.
 
 ## 🚀 Proje Hakkında
 
