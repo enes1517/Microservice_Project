@@ -3,8 +3,4 @@
   <Project Path="OrchestratorService/OrchestratorService.csproj" />
   <Project Path="ProductService/ProductService.csproj" />
   <Project Path="Shared/Shared.csproj" Id="a6224057-b365-4f5c-9f7f-8584c760e51b" />
-  <Project Path="frontend/frontend.esproj" Id="9a5155ac-0298-4667-bb71-123456789abc">
-    <Build />
-    <Deploy />
-  </Project>
 </Solution>

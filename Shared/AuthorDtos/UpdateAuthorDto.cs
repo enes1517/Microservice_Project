@@ -4,7 +4,8 @@ namespace Shared.AuthorDtos
 {
     public record class UpdateAuthorDto
     {
-        public string Id { get; init; } = null!;
+        [Required(ErrorMessage = "Güncellenecek yazarın ID bilgisi eksik.")]
+        public string AuId { get; init; } = null!;
 
         [Required(ErrorMessage = "Soyadı boş bırakılamaz.")]
         [StringLength(40)]

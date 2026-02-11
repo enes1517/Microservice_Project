@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OrchestratorService.Refit;
 using Shared.AuthorDtos;
-using Shared.RequestParameters;
 using Shared.TitleDtos;
 
 namespace OrchestratorService.Controllers
@@ -17,21 +16,13 @@ namespace OrchestratorService.Controllers
             _productApi = productApi;
         }
 
-        #region Product (Titles) Operations
+        #region Product Operations
 
-        /// <summary>
-        /// Tüm kitapları filtreli ve sayfalı şekilde getirir.
-        /// </summary>
         [HttpGet("products")]
-        public async Task<IActionResult> GetTitles([FromQuery] TitleRequestParameters p)
+        public async Task<IActionResult> GetProducts([FromQuery] int n = 10)
         {
-            // İki ayrı metodun görevini tek bir metot üstlenir. 
-            // Eğer p boş gelirse, CommonParameters içindeki varsayılanlar (1, 6) geçerli olur.
-            var response = await _productApi.GetAllTitlesAsync(p);
-
-            return response.IsSuccessStatusCode
-                ? Ok(response.Content)
-                : StatusCode((int)response.Error.StatusCode, response.Error.Content);
+            var response = await _productApi.GetAllProductsAsync(n);
+            return response.IsSuccessStatusCode ? Ok(response.Content) : StatusCode((int)response.Error.StatusCode);
         }
 
         [HttpGet("products/{id}")]
@@ -66,23 +57,10 @@ namespace OrchestratorService.Controllers
 
         #region Author Operations
 
-        /// <summary>
-        /// Tüm yazarları filtreli ve sayfalı şekilde getirir.
-        /// </summary>
         [HttpGet("authors")]
-        public async Task<IActionResult> GetAuthors([FromQuery] AuthorRequestParameters p)
+        public async Task<IActionResult> GetAuthors([FromQuery] int n = 5)
         {
-            var response = await _productApi.GetAllAuthorsAsync(p);
-
-            return response.IsSuccessStatusCode
-                ? Ok(response.Content)
-                : StatusCode((int)response.Error.StatusCode, response.Error.Content);
-        }
-
-        [HttpGet("authors/{id}")]
-        public async Task<IActionResult> GetAuthor(string id)
-        {
-            var response = await _productApi.GetAuthorByIdAsync(id);
+            var response = await _productApi.GetAllAuthorsAsync(n);
             return response.IsSuccessStatusCode ? Ok(response.Content) : StatusCode((int)response.Error.StatusCode);
         }
 

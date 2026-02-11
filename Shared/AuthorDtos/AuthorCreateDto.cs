@@ -4,6 +4,8 @@ namespace Shared.AuthorDtos
 {
     public class AuthorCreateDto
     {
+        [Required(ErrorMessage = "Yazar ID zorunludur.")]
+        public string AuId { get; set; } = null!;
 
         [Required, StringLength(40)]
         public string AuLname { get; set; } = null!;

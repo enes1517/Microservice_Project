@@ -1,41 +1,27 @@
-ï»¿using OrchestratorService.Refit;
+using OrchestratorService.Refit;
 using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// CORS Policy ekle - Angular iÃ§in
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngular", policy =>
-    {
-        policy.WithOrigins("http://localhost:4200")
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
-    });
-});
-
 builder.Services.AddControllers();
 
-// ProductService iÃ§in Refit client
+// Refit Client Kaydý
 builder.Services.AddRefitClient<IProductServiceApi>()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7265"));
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7081")); // ProductService'in gerçek URL'si
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// CORS'u kullan
-app.UseCors("AllowAngular");
-
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseSwagger(); // /swagger/v1/swagger.json adresini oluþturur
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

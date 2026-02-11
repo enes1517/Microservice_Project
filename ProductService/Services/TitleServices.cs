@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using ProductService.Infastructure.Extensions;
 using ProductService.Services.Contracts;
 using Shared.Models;
-using Shared.RequestParameters;
 using Shared.TitleDtos;
 
 namespace ProductService.Services
@@ -21,50 +19,23 @@ namespace ProductService.Services
 
         public async Task<CreateTitleDto> CreateTitle(CreateTitleDto title)
         {
-            // Auto-generate ID (6 character GUID)
-            var generatedId = Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper();
-            
             var titleDto = new Title
             {
-                TitleId = generatedId,
-                Title1 = title.Title,
-                Price = title.Price,
-                Notes = title.Notes,
-                Type = title.Type,
-                Royalty = title.Royalty,
-                Pubdate = title.Pubdate,
+                TitleId=title.Id,
+                Title1=title.Title,
+                Price=title.Price,
+                Notes=title.Notes,
+                Type=title.Type,
+                Royalty=title.Royalty,
+                Pubdate=title.Pubdate,
+        
+               
+                
             };
-            
             await _context.Titles.AddAsync(titleDto);
             await _context.SaveChangesAsync();
-            
             return title;
-        }
 
-        public async Task<(List<TitleDto> Titles, int TotalCount)> GetAllTitlesAsync(TitleRequestParameters p)
-        {
-            var query = _context.Titles
-                .FilteredByTitle(p.Title)
-                .FilteredByType(p.Type)
-                .FilteredByPrice(p.Price);
-
-            var count = await query.CountAsync();
-
-            var list = await query
-                .toPaginate(p.pageNumber, p.pageSize)
-                .Select(t=>new TitleDto
-                {
-                    id=t.TitleId,
-                    notes=t.Notes,
-                    price=t.Price,
-                    type=t.Type,
-                    title=t.Title1,
-                    royalty=t.Royalty
-
-                })
-                .ToListAsync();
-
-            return (list, count);
         }
 
         public async Task<bool> DeleteAsync(string id)
@@ -84,49 +55,27 @@ namespace ProductService.Services
                 .Take(n)
                 .Select(t => new TitleDto 
                 {
-                    id = t.TitleId,
-                    type = t.Type,
-                    price = t.Price,
-                    notes = t.Notes,
-                    royalty = t.Royalty,
-                    title = t.Title1
+                    Id = t.TitleId,
+                    Type = t.Type,
+                    Price = t.Price,
+                    Notes = t.Notes,
+                    Royalty = t.Royalty,
+                    Title = t.Title1
                 })
                 .ToListAsync(); 
         }
 
-        public async Task<TitleDto?> GetByIdAsync(string id)
-        {
-            var title = await _context.Titles.FindAsync(id);
-            if (title is null)
-                return null;
-            
-            return new TitleDto
-            {
-                id = title.TitleId,
-                type = title.Type,
-                price = title.Price,
-                notes = title.Notes,
-                royalty = title.Royalty,
-                title = title.Title1
-            };
-        }
-
         public async Task<bool> UpdateAsync(UpdateTitleDto updateTitle)
         {
-            // 1. Kaydı veritabanından bul
-            var exist = await _context.Titles.FindAsync(updateTitle.id);
-            if (exist is null)
+            var exist = await _context.Titles.FindAsync(updateTitle.Id);
+            if(exist is null)
                 return false;
+           _mapper.Map(updateTitle, exist); 
 
-            // 2. Mapping işlemini gerçekleştir (MappingProfile buradaki veriyi exist içine yazar)
-            _mapper.Map(updateTitle, exist);
-
-            // 3. EF Core'a bu nesnenin değiştiğini bildir ve kaydet
             _context.Titles.Update(exist);
-            var result = await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-            // Değişiklik kaydedildiyse (result > 0) true döner
-            return result > 0;
+            return true;
         }
     }
 }

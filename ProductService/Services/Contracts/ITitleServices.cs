@@ -1,6 +1,4 @@
-﻿using Shared.Models;
-using Shared.RequestParameters;
-using Shared.TitleDtos;
+﻿using Shared.TitleDtos;
 
 namespace ProductService.Services.Contracts
 {
@@ -10,7 +8,5 @@ namespace ProductService.Services.Contracts
         Task<bool> UpdateAsync(UpdateTitleDto updateTitle);
         Task<bool> DeleteAsync(string id);
         Task<List<TitleDto>> GetAllAsync(int n);
-        Task<TitleDto?> GetByIdAsync(string id);
-        Task<(List<TitleDto> Titles, int TotalCount)> GetAllTitlesAsync(TitleRequestParameters p);
     }
 }

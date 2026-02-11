@@ -1,26 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Shared.TitleDtos
+﻿namespace Shared.TitleDtos
 {
-    public record class CreateTitleDto
+    public record class CreateTitleDto:TitleDto
     {
-        [Required(ErrorMessage = "Kitap başlığı (Title) boş bırakılamaz.")]
-        [StringLength(80, ErrorMessage = "Başlık en fazla 80 karakter olabilir.")]
-        public string Title { get; init; } = null!;
+    public DateTime Pubdate { get; set; }
 
-        [Range(0, 10000, ErrorMessage = "Fiyat 0 ile 10.000 arasında olmalıdır.")]
-        public decimal? Price { get; init; }
 
-        [Required(ErrorMessage = "Kitap türü belirtilmelidir.")]
-        [StringLength(12)]
-        public string Type { get; init; } = null!;
 
-        [StringLength(200, ErrorMessage = "Notlar 200 karakteri geçmemelidir.")]
-        public string? Notes { get; init; }
-
-        [Range(0, 100, ErrorMessage = "Telif oranı (Royalty) 0-100 arasında bir yüzde olmalıdır.")]
-        public int? Royalty { get; init; }
-
-        public DateTime Pubdate { get; set; }
     }
 }

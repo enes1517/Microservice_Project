@@ -1,6 +1,4 @@
 ﻿using Shared.AuthorDtos;
-using Shared.Models;
-using Shared.RequestParameters;
 
 namespace ProductService.Services.Contracts
 {
@@ -9,9 +7,7 @@ namespace ProductService.Services.Contracts
         Task<AuthorCreateDto> AuthorCreateAsync(AuthorCreateDto dto);
         Task<bool> AuthorUpdateAsync(UpdateAuthorDto dto);
         Task<bool> AuthorDeleteAsync(string id);
-        Task<Author?> GetAuthorByIdAsync(string id);
         Task<List<AuthorWiewDto>> GetListAsync(int n);
-        Task<(List<AuthorWiewDto> Authors, int TotalCount)> GetAllAuthorsAsync(AuthorRequestParameters p);
 
     }
 }
