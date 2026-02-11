@@ -21,7 +21,7 @@ namespace ProductService.Services
 
         public async Task<CreateTitleDto> CreateTitle(CreateTitleDto title)
         {
-            // Auto-generate ID (6 character GUID)
+            
             var generatedId = Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper();
             
             var titleDto = new Title
@@ -113,19 +113,19 @@ namespace ProductService.Services
 
         public async Task<bool> UpdateAsync(UpdateTitleDto updateTitle)
         {
-            // 1. Kaydı veritabanından bul
+        
             var exist = await _context.Titles.FindAsync(updateTitle.id);
             if (exist is null)
                 return false;
 
-            // 2. Mapping işlemini gerçekleştir (MappingProfile buradaki veriyi exist içine yazar)
+            
             _mapper.Map(updateTitle, exist);
 
-            // 3. EF Core'a bu nesnenin değiştiğini bildir ve kaydet
+            
             _context.Titles.Update(exist);
             var result = await _context.SaveChangesAsync();
 
-            // Değişiklik kaydedildiyse (result > 0) true döner
+            
             return result > 0;
         }
     }
