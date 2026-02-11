@@ -1,14 +1,15 @@
 ﻿using Refit;
 using Shared.AuthorDtos;
+using Shared.RequestParameters;
 using Shared.TitleDtos;
 
 namespace OrchestratorService.Refit
 {
     public interface IProductServiceApi
     {
-        // --- Products (ProductsController) ---
+        // Query parametrelerini tek bir nesne üzerinden gönderiyoruz
         [Get("/api/Products")]
-        Task<IApiResponse<object>> GetAllProductsAsync([Query] int n);
+        Task<IApiResponse<object>> GetAllTitlesAsync([Query] TitleRequestParameters p);
 
         [Get("/api/Products/{id}")]
         Task<IApiResponse<object>> GetProductByIdAsync(string id);
@@ -22,9 +23,12 @@ namespace OrchestratorService.Refit
         [Delete("/api/Products/{id}")]
         Task<IApiResponse<object>> DeleteProductAsync(string id);
 
-        // --- Authors (AuthorsController) ---
+        // Authors için de [Query] ekliyoruz
         [Get("/api/Authors")]
-        Task<IApiResponse<object>> GetAllAuthorsAsync([Query] int n);
+        Task<IApiResponse<object>> GetAllAuthorsAsync([Query] AuthorRequestParameters p);
+
+        [Get("/api/Authors/{id}")]
+        Task<IApiResponse<object>> GetAuthorByIdAsync(string id);
 
         [Post("/api/Authors")]
         Task<IApiResponse<object>> CreateAuthorAsync([Body] AuthorCreateDto dto);
