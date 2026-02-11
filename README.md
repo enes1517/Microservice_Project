@@ -1,6 +1,6 @@
 # Microservices Demo Project
 
-Bu proje, modern mikroservis mimarisini, .NET 10 ve Angular 18 teknolojilerini kullanarak gösteren kapsamlı bir demo uygulamasıdır. Proje, API Gateway, Orchestrator deseni, CQRS ve Clean Architecture prensiplerini içermektedir.
+Bu proje, modern mikroservis mimarisini, .NET 10 ve Angular 18 teknolojilerini kullanarak gösteren kapsamlı bir demo uygulamasıdır. Proje, API Gateway, Orchestrator deseni ve Clean Architecture prensiplerini içermektedir.
 
 ## 🚀 Proje Hakkında
 
@@ -11,7 +11,6 @@ MicroservicesDemo, e-ticaret benzeri bir senaryo üzerinden mikroservislerin nas
 *   **Mikroservis Mimarisi:** Servislerin bağımsız olarak geliştirilebilir ve dağıtılabilir yapısı.
 *   **API Gateway (Ocelot):** İstemciler için tek bir giriş noktası sağlar ve istekleri ilgili servislere yönlendirir.
 *   **Orchestrator Pattern:** Karmaşık iş süreçlerini yönetmek için servisler arası iletişimi koordine eder.
-*   **CQRS (Command Query Responsibility Segregation):** MediatR kütüphanesi kullanılarak okuma ve yazma işlemlerinin ayrıştırılması.
 *   **Clean Architecture:** Katmanlı ve test edilebilir kod yapısı.
 *   **Modern Frontend:** Angular 18 ve Angular Material ile geliştirilmiş responsive ve şık kullanıcı arayüzü.
 
