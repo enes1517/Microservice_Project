@@ -38,8 +38,8 @@ namespace ProductService.Controllers
             var author = await _manager.GetAuthorByIdAsync(id);
             if (author is null) return NotFound();
             
-            // Map to UpdateAuthorDto or AuthorViewDto as expected by frontend
-            // Frontend expects UpdateAuthorDto for editing
+    
+        
             var authorDto = new UpdateAuthorDto
             {
                 Id = author.AuId,
