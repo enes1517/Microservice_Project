@@ -18,7 +18,6 @@ MicroservicesDemo, e-ticaret benzeri bir senaryo üzerinden mikroservislerin nas
 
 Proje aşağıdaki temel bileşenlerden oluşur:
 
-```mermaid
 graph TD
     User[Kullanıcı / Frontend] -->|HTTPS| Gateway[ApiGateway (Ocelot)]
     Gateway -->|/gateway| Orchestrator[Orchestrator Service]
@@ -27,7 +26,6 @@ graph TD
     Orchestrator -->|HTTP / Refit| Product
     
     Product -->|EF Core| DB[(SQL Server)]
-```
 
 *   **ApiGateway:** Tüm dış istekleri karşılar.
 *   **OrchestratorService:** İş mantığını ve servisler arası akışı yönetir (örneğin, ürün oluşturma süreçleri). `Refit` kullanarak diğer servislerle haberleşir.
