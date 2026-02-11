@@ -24,9 +24,9 @@ namespace ProductService.Services
             {
                 // Generate random numeric ID: XXX-XX-XXXX (Standard Pubs format)
                 var rnd = new Random();
-                var p1 = rnd.Next(100, 999); // 3 digits
-                var p2 = rnd.Next(10, 99);   // 2 digits
-                var p3 = rnd.Next(1000, 9999); // 4 digits
+                var p1 = rnd.Next(100, 999); 
+                var p2 = rnd.Next(10, 99);   
+                var p3 = rnd.Next(1000, 9999); 
                 var generatedId = $"{p1}-{p2}-{p3}";
                 
                 var author = new Author()
@@ -37,9 +37,9 @@ namespace ProductService.Services
                     AuLname = dto.AuLname,
                     Phone = dto.Phone,
                     City = dto.City,
-                    State = "NA", // Default value
-                    Zip = "00000", // Default value
-                    Contract = dto.Contract, // Use value from DTO
+                    State = "NA", 
+                    Zip = "00000", 
+                    Contract = dto.Contract, 
                 };
 
                 await _context.Authors.AddAsync(author);
