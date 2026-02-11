@@ -41,14 +41,30 @@ namespace ProductService.Services
             return title;
         }
 
-        public async Task<List<Title>> GetAllTitlesAsync(TitleRequestParameters p)
+        public async Task<(List<TitleDto> Titles, int TotalCount)> GetAllTitlesAsync(TitleRequestParameters p)
         {
-            return await _context.Titles
+            var query = _context.Titles
                 .FilteredByTitle(p.Title)
                 .FilteredByType(p.Type)
-                .FilteredByPrice(p.Price)
-                .toPaginate(p.pageNumber,p.pageSize)
+                .FilteredByPrice(p.Price);
+
+            var count = await query.CountAsync();
+
+            var list = await query
+                .toPaginate(p.pageNumber, p.pageSize)
+                .Select(t=>new TitleDto
+                {
+                    id=t.TitleId,
+                    notes=t.Notes,
+                    price=t.Price,
+                    type=t.Type,
+                    title=t.Title1,
+                    royalty=t.Royalty
+
+                })
                 .ToListAsync();
+
+            return (list, count);
         }
 
         public async Task<bool> DeleteAsync(string id)

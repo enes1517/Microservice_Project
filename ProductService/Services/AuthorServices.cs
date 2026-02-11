@@ -32,14 +32,14 @@ namespace ProductService.Services
                 var author = new Author()
                 {
                     AuId = generatedId,
-                    AuFname = dto.auFname,
-                    Address = dto.address,
-                    AuLname = dto.auLname,
-                    Phone = dto.phone,
-                    City = dto.city,
+                    AuFname = dto.AuFname,
+                    Address = dto.Address,
+                    AuLname = dto.AuLname,
+                    Phone = dto.Phone,
+                    City = dto.City,
                     State = "NA", // Default value
                     Zip = "00000", // Default value
-                    Contract = dto.contract, // Use value from DTO
+                    Contract = dto.Contract, // Use value from DTO
                 };
 
                 await _context.Authors.AddAsync(author);
@@ -66,13 +66,27 @@ namespace ProductService.Services
             await _context.SaveChangesAsync();  
             return true;
         }
-        public async Task<List<Author>> GetAllAuthorsAsync(AuthorRequestParameters r)
+        public async Task<(List<AuthorWiewDto> Authors, int TotalCount)> GetAllAuthorsAsync(AuthorRequestParameters r)
         {
-            return await  _context.Authors
+            var query = _context.Authors
                 .FiltredByLocation(r.Location)
-                .FiltredByFullname(r.Fullname)
+                .FiltredByFullname(r.Fullname);
+
+            var count = await query.CountAsync();
+
+            var list = await query
                 .toPaginate(r.pageNumber,r.pageSize)
+                .Select(a=>new AuthorWiewDto
+                {
+                    Id = a.AuId,
+                    FullName=$"{a.AuFname} {a.AuLname}",
+                    BookCount=a.Titleauthors.Count,
+                    Location=a.City,
+                    Phone=a.Phone,
+                })
                 .ToListAsync();
+
+            return (list, count);
         }
 
         public async Task<bool> AuthorDeleteAsync(string id)

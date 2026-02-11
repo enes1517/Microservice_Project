@@ -8,20 +8,20 @@ export interface AuthorViewDto {
 }
 
 export interface AuthorCreateDto {
-    auLname: string;
-    auFname: string;
-    phone: string;
-    address?: string;
-    city?: string;
-    contract: boolean;
+    AuLname: string;
+    AuFname: string;
+    Phone: string;
+    Address?: string;
+    City?: string;
+    Contract: boolean;
 }
 
 export interface UpdateAuthorDto {
-    id?: string;
-    auLname: string;
-    auFname: string;
-    phone: string;
-    address?: string;
-    city?: string;
-    contract: boolean;
+    Id?: string;
+    AuLname: string;
+    AuFname: string;
+    Phone: string;
+    Address?: string;
+    City?: string;
+    Contract: boolean;
 }

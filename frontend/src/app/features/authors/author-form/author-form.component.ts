@@ -64,8 +64,17 @@ export class AuthorFormComponent implements OnInit {
     loadAuthor(id: string): void {
         this.loading = true;
         this.authorsService.getAuthor(id).subscribe({
-            next: (author) => {
-                this.authorForm.patchValue(author);
+            next: (author: any) => {
+                // Map PascalCase (or camelCase) DTO to camelCase form controls
+                // Using 'any' type for author to allow flexible property access
+                this.authorForm.patchValue({
+                    auFname: author.AuFname || author.auFname,
+                    auLname: author.AuLname || author.auLname,
+                    phone: author.Phone || author.phone,
+                    address: author.Address || author.address,
+                    city: author.City || author.city,
+                    contract: author.Contract !== undefined ? author.Contract : author.contract
+                });
                 this.loading = false;
             },
             error: () => {
@@ -81,20 +90,34 @@ export class AuthorFormComponent implements OnInit {
 
             if (this.isEditMode) {
                 const updateDto: UpdateAuthorDto = {
-                    id: this.authorId!,
-                    ...formValue
+                    Id: this.authorId!,
+                    AuFname: formValue.auFname,
+                    AuLname: formValue.auLname,
+                    Phone: formValue.phone,
+                    Address: formValue.address,
+                    City: formValue.city,
+                    Contract: formValue.contract
                 };
                 this.authorsService.updateAuthor(updateDto).subscribe({
                     next: () => {
                         this.notificationService.success('Yazar başarıyla güncellendi');
                         this.router.navigate(['/authors']);
                     },
-                    error: () => {
+                    error: (err) => {
+                        console.error('Güncelleme hatası:', err);
+                        this.notificationService.error('Yazar güncellenirken bir hata oluştu');
                         this.loading = false;
                     }
                 });
             } else {
-                const createDto: AuthorCreateDto = formValue;
+                const createDto: AuthorCreateDto = {
+                    AuFname: formValue.auFname,
+                    AuLname: formValue.auLname,
+                    Phone: formValue.phone,
+                    Address: formValue.address,
+                    City: formValue.city,
+                    Contract: formValue.contract
+                };
                 this.authorsService.createAuthor(createDto).subscribe({
                     next: () => {
                         this.notificationService.success('Yazar başarıyla eklendi');

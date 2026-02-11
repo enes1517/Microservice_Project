@@ -4,36 +4,36 @@ namespace ProductService.Infastructure.Extensions
 {
     public static class TitleFilterExtensions
     {
-       public static IQueryable<Title> FilteredByTitle(this IQueryable<Title> query , string title)
+        public static IQueryable<Title> FilteredByTitle(this IQueryable<Title> titles, string? title)
         {
             if (string.IsNullOrWhiteSpace(title))
-                return query;
+                return titles;
 
-            return query.Where(t=>t.Title1.ToLower().Contains(title.ToLower()));
-
-            
+            return titles.Where(t => t.Title1 != null && t.Title1.ToLower().Contains(title.ToLower()));
         }
-        public static IQueryable<Title> FilteredByType(this IQueryable<Title> query, string type)
+
+        public static IQueryable<Title> FilteredByType(this IQueryable<Title> titles, string? type)
         {
             if (string.IsNullOrWhiteSpace(type))
-                return query;
+                return titles;
 
-            return query.Where(t => t.Type.ToLower().Contains(type.ToLower()));
-
-
+            return titles.Where(t => t.Type != null && t.Type.ToLower().Contains(type.ToLower()));
         }
-        public static IQueryable<Title> FilteredByPrice(this IQueryable<Title> query, decimal? price)
+
+        public static IQueryable<Title> FilteredByPrice(this IQueryable<Title> titles, decimal? price)
         {
             if (price is null)
-                return query;
+                return titles;
 
-            return query.Where(t => t.Price.Equals(price));
-
-
+            return titles.Where(t => t.Price == price);
         }
-        public static IQueryable<Title> toPaginate(this IQueryable<Title> query, int pageNumber, int pageSize)
+
+        public static IQueryable<Title> toPaginate(this IQueryable<Title> titles, int pageNumber, int pageSize)
         {
-            return query.Skip((pageNumber-1)*pageSize)
+             // Update pageNumber if less than 1
+            if (pageNumber < 1) pageNumber = 1;
+
+            return titles.Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize);
         }
     }

@@ -11,6 +11,6 @@ namespace ProductService.Services.Contracts
         Task<bool> DeleteAsync(string id);
         Task<List<TitleDto>> GetAllAsync(int n);
         Task<TitleDto?> GetByIdAsync(string id);
-        Task<List<Title>> GetAllTitlesAsync(TitleRequestParameters p);
+        Task<(List<TitleDto> Titles, int TotalCount)> GetAllTitlesAsync(TitleRequestParameters p);
     }
 }

@@ -20,9 +20,15 @@ namespace ProductService.Controllers
  
 
         [HttpGet]
-        public async Task<List<Title>> GetAllTitlesAsync([FromQuery]TitleRequestParameters p)
+        [HttpGet]
+        public async Task<IActionResult> GetAllTitlesAsync([FromQuery]TitleRequestParameters p)
         {
-            return  await _manager.GetAllTitlesAsync(p);
+            var result =  await _manager.GetAllTitlesAsync(p);
+            return Ok(new
+            {
+                items = result.Titles,
+                totalCount = result.TotalCount
+            });
         }
 
         [HttpGet("{id}")]

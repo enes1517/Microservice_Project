@@ -1,4 +1,5 @@
 // Product (Title/Book) Data Transfer Objects
+// Backend TitleDto'ya tam uyumlu - küçük harf field'lar
 export interface TitleDto {
     id: string;
     title: string;
@@ -17,6 +18,11 @@ export interface CreateTitleDto {
     pubdate: Date | string;
 }
 
-export interface UpdateTitleDto extends TitleDto {
-    // Inherits all properties from TitleDto
+export interface UpdateTitleDto {
+    id: string;
+    title: string;
+    price?: number;
+    type: string;
+    notes?: string;
+    royalty?: number;
 }

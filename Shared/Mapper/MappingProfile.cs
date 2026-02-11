@@ -28,8 +28,8 @@ namespace Shared.Mapper
 
             // Author mappings
             CreateMap<UpdateAuthorDto, Author>()
-                .ForMember(dest => dest.AuId, opt => opt.MapFrom(src => src.Id)) // 'Id' yerine 'id' (DTO'na göre kontrol et)
-                .ForMember(dest => dest.AuLname, opt => opt.MapFrom(src => src.AuLName))
+                .ForMember(dest => dest.AuId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.AuLname, opt => opt.MapFrom(src => src.AuLname))  
                 .ForMember(dest => dest.AuFname, opt => opt.MapFrom(src => src.AuFname))
                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone))
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))

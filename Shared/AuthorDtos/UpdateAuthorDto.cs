@@ -8,7 +8,7 @@ namespace Shared.AuthorDtos
 
         [Required(ErrorMessage = "Soyadı boş bırakılamaz.")]
         [StringLength(40)]
-        public string AuLName { get; init; } = null!;
+        public string AuLname { get; init; } = null!;
 
         [Required(ErrorMessage = "Ad boş bırakılamaz.")]
         [StringLength(20)]

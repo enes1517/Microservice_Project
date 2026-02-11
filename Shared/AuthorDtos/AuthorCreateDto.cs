@@ -6,16 +6,16 @@ namespace Shared.AuthorDtos
     {
 
         [Required, StringLength(40)]
-        public string auLname { get; set; } = null!;
+        public string AuLname { get; set; } = null!;
 
         [Required, StringLength(20)]
-        public string auFname { get; set; } = null!;
+        public string AuFname { get; set; } = null!;
 
         [Phone]
-        public string phone { get; set; } = null!;
+        public string Phone { get; set; } = null!;
 
-        public string? address { get; set; }
-        public string? city { get; set; }
-        public bool contract { get; set; }
+        public string? Address { get; set; }
+        public string? City { get; set; }
+        public bool Contract { get; set; }
     }
 }

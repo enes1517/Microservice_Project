@@ -11,7 +11,7 @@ namespace ProductService.Services.Contracts
         Task<bool> AuthorDeleteAsync(string id);
         Task<Author?> GetAuthorByIdAsync(string id);
         Task<List<AuthorWiewDto>> GetListAsync(int n);
-        Task<List<Author>> GetAllAuthorsAsync(AuthorRequestParameters p);
+        Task<(List<AuthorWiewDto> Authors, int TotalCount)> GetAllAuthorsAsync(AuthorRequestParameters p);
 
     }
 }

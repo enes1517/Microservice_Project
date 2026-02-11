@@ -20,9 +20,38 @@ namespace ProductService.Controllers
         
         [HttpGet]
 
-        public async Task<List<Author>> GetAllAuthorsAsync([FromQuery]AuthorRequestParameters p)
+        [HttpGet]
+        public async Task<IActionResult> GetAllAuthorsAsync([FromQuery]AuthorRequestParameters p)
         {
-            return await _manager.GetAllAuthorsAsync(p);
+            var result = await _manager.GetAllAuthorsAsync(p);
+            
+            return Ok(new 
+            {
+                items = result.Authors,
+                totalCount = result.TotalCount
+            });
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAuthorById(string id)
+        {
+            var author = await _manager.GetAuthorByIdAsync(id);
+            if (author is null) return NotFound();
+            
+            // Map to UpdateAuthorDto or AuthorViewDto as expected by frontend
+            // Frontend expects UpdateAuthorDto for editing
+            var authorDto = new UpdateAuthorDto
+            {
+                Id = author.AuId,
+                AuFname = author.AuFname,
+                AuLname = author.AuLname,
+                Phone = author.Phone,
+                Address = author.Address,
+                City = author.City,
+                Contract = author.Contract
+            };
+            
+            return Ok(authorDto);
         }
 
      

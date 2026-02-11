@@ -62,8 +62,15 @@
                             <mat-icon>menu_book</mat-icon>
                         </div>
                         <div class="item-info">
-                            <h3>{{ book.title }}</h3>
-                            <p>{{ book.type }} • {{ book.price || 'Fiyat belirtilmemiş' }}₺</p>
+                            <h3 class="item-title">{{ book.title }}</h3>
+                            <p class="item-details">
+                                <span class="detail-badge">{{ book.type }}</span>
+                                <span class="detail-separator">•</span>
+                                <span class="detail-price">{{ book.price ? (book.price + '₺') : 'Fiyat belirtilmemiş'
+                                    }}</span>
+                                <span class="detail-separator" *ngIf="book.royalty">•</span>
+                                <span class="detail-royalty" *ngIf="book.royalty">Telif: %{{ book.royalty }}</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -94,8 +101,12 @@
                             <mat-icon>person</mat-icon>
                         </div>
                         <div class="item-info">
-                            <h3>{{ author.fullName }}</h3>
-                            <p>{{ author.bookCount }} Kitap • {{ author.location || 'Konum belirtilmemiş' }}</p>
+                            <h3 class="item-title">{{ getAuthorFullName(author) }}</h3>
+                            <p class="item-details">
+                                <span class="detail-badge">{{ author.city || 'Konum belirtilmemiş' }}</span>
+                                <span class="detail-separator">•</span>
+                                <span class="detail-phone">{{ author.phone }}</span>
+                            </p>
                         </div>
                     </div>
                 </div>
